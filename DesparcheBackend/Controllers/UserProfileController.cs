@@ -53,7 +53,7 @@ namespace DesparcheBackend.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Consumidor")]
+        [Authorize(Roles = "Consumidor,Perito")]
         [Route("consumidor")]
         public string Consumidor()
         {

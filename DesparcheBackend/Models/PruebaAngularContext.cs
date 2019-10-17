@@ -18,12 +18,13 @@ namespace DesparcheBackend.Models
         }
 
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Proyecto> Proyecto { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PruebaAngular;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=tcp:fulsstakobra.database.windows.net,1433;Initial Catalog=avanceobra;Persist Security Info=False;User ID=admin_obra;Password=Avance_123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

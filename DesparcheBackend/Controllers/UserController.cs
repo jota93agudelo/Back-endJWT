@@ -46,7 +46,7 @@ namespace DesparcheBackend.Controllers
                     UserName = usuarioTO.Correo.Split('@')[0]
                 };
                 var result = await _userManager.CreateAsync(usuario, usuarioTO.Contrasena);
-                await _userManager.AddToRoleAsync(usuario, usuarioTO.Rol);
+                //await _userManager.AddToRoleAsync(usuario, usuarioTO.Rol);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace DesparcheBackend.Controllers
                 {
                     // Obtener rol del usuario
 
-                    var role = await _userManager.GetRolesAsync(usuario);
+                    //var role = await _userManager.GetRolesAsync(usuario);
                     IdentityOptions _options = new IdentityOptions();
 
                     var tokenDescripcion = new SecurityTokenDescriptor
@@ -75,7 +75,7 @@ namespace DesparcheBackend.Controllers
                         Subject = new ClaimsIdentity(new Claim[]
                         {
                             new Claim("UserId", usuario.Id.ToString()),
-                            new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
+                            //new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                         }),
                         Expires = DateTime.UtcNow.AddMinutes(5),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)

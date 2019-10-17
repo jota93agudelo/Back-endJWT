@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DesparcheBackend.BO;
+using DesparcheBackend.BO.BlobStorage;
+using DesparcheBackend.BO.Utilidades;
 using DesparcheBackend.DA;
 using DesparcheBackend.DB;
 using DesparcheBackend.Models;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DesparcheBackend.Controllers
 {
@@ -21,9 +24,13 @@ namespace DesparcheBackend.Controllers
     {
         //private readonly DbContext bDContext;
         readonly IUsuarioBO usuarioBO;
-        public ValuesController(PruebaAngularContext sc)
+        readonly IBlobStorage blobStorage;
+        readonly IDeepApi deepApi;
+        public ValuesController(PruebaAngularContext sc )
         {
             usuarioBO = new UsuarioBO(new UsuarioDA(sc));
+            blobStorage = new BlobStorage();
+            deepApi = new DeepApi();
         }
         // GET api/values
         [HttpGet]
@@ -65,14 +72,16 @@ namespace DesparcheBackend.Controllers
         }
 
         [Route("login")]
-        [HttpPost]
-        public IActionResult Login([FromBody] LoginModel model)
+        [HttpGet]
+        public IActionResult Login()
         {
             try
             {
-                return Ok(usuarioBO.login(model));
+                var prueba2 = deepApi.CompararImagen();
+                var prueba = blobStorage.SubirArchivoSoporte("", "", "", true);
+                return Ok("Dio");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new ArgumentException("Se presentó un error en el controlador");
             }
